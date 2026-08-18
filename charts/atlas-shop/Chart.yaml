@@ -1,0 +1,12 @@
+apiVersion: v2
+name: atlas-shop
+description: Atlas shop umbrella (one Java API)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+dependencies:
+  - name: java-api
+    version: 0.1.0
+    repository: file://./charts/java-api
+    alias: catalog-api
+    condition: catalog-api.enabled
