@@ -1,20 +1,6 @@
-global:
-  tags:
-    owner: atlas-platform
-    application: atlas-shop
-
+# Chart-only defaults. Cluster/env config lives in atlas-gitops overlays.
 catalog-api:
   enabled: true
   fullnameOverride: catalog-api
   image:
-    registry: atlas.azurecr.io
     name: atlas-catalog-api
-    tag: 0.1.0
-  service:
-    type: LoadBalancer
-    port: 80
-    targetPort: 8080
-    annotations:
-      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-  configurations:
-    ROOT_LOG_LEVEL: INFO

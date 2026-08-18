@@ -2,35 +2,29 @@ fullnameOverride: ""
 nameOverride: ""
 
 enabled: true
-replicas: 1
 
 image:
-  registry: atlas.azurecr.io
+  # Leave registry/tag empty so gitops global.image.registry and
+  # catalog-api.image.tag overlays win. name is the image repository.
+  registry: ""
   name: atlas-catalog-api
-  tag: 0.1.0
-  pullPolicy: IfNotPresent
+  tag: ""
+  pullPolicy: ""
 
 service:
-  type: LoadBalancer
+  type: ""
   port: 80
   targetPort: 8080
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  annotations: {}
 
 health:
   readinessPath: /actuator/health/readiness
   livenessPath: /actuator/health/liveness
 
-resources:
-  requests:
-    cpu: 100m
-    memory: 256Mi
-  limits:
-    cpu: 500m
-    memory: 512Mi
+resources: {}
 
 configmap:
   enabled: true
 
-configurations:
-  ROOT_LOG_LEVEL: INFO
+# Pod env (ConfigMap). Merged with global.configurations; service keys win.
+configurations: {}

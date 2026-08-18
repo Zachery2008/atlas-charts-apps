@@ -5,13 +5,14 @@ metadata:
   name: {{ include "common.fullname" . }}
   labels:
     {{- include "common.labels" . | nindent 4 }}
-  {{- with .Values.service.annotations }}
+  {{- $anns := include "common.serviceAnnotations" . | fromYaml }}
+  {{- if $anns }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+    {{- toYaml $anns | nindent 4 }}
   {{- end }}
 spec:
-  type: {{ .Values.service.type }}
-  {{- if eq .Values.service.type "LoadBalancer" }}
+  type: {{ include "common.serviceType" . }}
+  {{- if eq (include "common.serviceType" .) "LoadBalancer" }}
   {{- if .Values.service.loadBalancerClass }}
   loadBalancerClass: {{ .Values.service.loadBalancerClass | quote }}
   {{- end }}

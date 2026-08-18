@@ -7,7 +7,7 @@ metadata:
   labels:
     {{- include "common.labels" . | nindent 4 }}
 data:
-  {{- range $k, $v := .Values.configurations }}
+  {{- range $k, $v := (include "common.configurations" . | fromYaml) }}
   {{ $k }}: {{ $v | quote }}
   {{- end }}
 {{- end -}}

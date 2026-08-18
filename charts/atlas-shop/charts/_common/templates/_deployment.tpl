@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "common.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicas | default 1 }}
+  replicas: {{ include "common.replicas" . }}
   selector:
     matchLabels:
       {{- include "common.selectorLabels" . | nindent 6 }}
@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: app
-          image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+          image: "{{ include "common.imageRegistry" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ include "common.imagePullPolicy" . }}
           ports:
             - name: http
               containerPort: {{ .Values.service.targetPort | default 8080 }}
@@ -40,5 +40,5 @@ spec:
             initialDelaySeconds: 20
             periodSeconds: 10
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- include "common.resources" . | nindent 12 }}
 {{- end -}}
