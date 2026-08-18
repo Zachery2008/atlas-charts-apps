@@ -1,17 +1,10 @@
 # atlas-charts-apps
 
-Umbrella Helm charts (same role as a `helm-applications` repo).
+Umbrella Helm charts for the Atlas GitOps demo.
+
+**Full setup and how the four repos work:** see
+[atlas-gitops/README.md](https://github.com/Zachery2008/atlas-gitops#atlas-gitops-demo).
 
 | Chart | Subcharts |
 |-------|-----------|
-| `atlas-shop` | `catalog-api` (alias of `java-api` from atlas-charts-common) |
-
-`java-api` is vendored under `charts/atlas-shop/charts/` so Argo can render from this Git repo alone.
-
-Copy updates from `atlas-charts-common` when the workload chart changes:
-
-```bash
-rm -rf charts/atlas-shop/charts/java-api charts/atlas-shop/charts/_common
-cp -R ../atlas-charts-common/charts/java-api charts/atlas-shop/charts/java-api
-cp -R ../atlas-charts-common/charts/_common charts/atlas-shop/charts/_common
-```
+| `atlas-shop` | `catalog-api` (alias of `java-api`) |
